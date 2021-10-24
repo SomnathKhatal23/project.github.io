@@ -15,16 +15,20 @@ def password(request):
     
     characters = list('abcdefghijklmnopqrstuvwxyz')
 
-    if request.GET.get('uppercase'):
+    if request.POST.get('uppercase'):
         characters.extend(list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
 
-    if request.GET.get('Special'):
+    if request.POST.get('Special'):
         characters.extend(list('!@#$%^&*()'))
 
-    if request.GET.get('numbers'):
-        characters.extend(list('0123456789'))    
+    if request.POST.get('numbers'):
+        characters.extend(list('0123456789'))  
 
-    lenght = int(request.GET.get('lenght',12))
+    #print("password-length-get",request.GET.get("password_length"))
+    data = request.POST.get('password_length')
+    #print(f"password-length-get{data}")
+
+    lenght = int(request.POST.get('lenght',data))
 
     thepassword = ''
 
@@ -33,4 +37,3 @@ def password(request):
 
 
     return render(request,'generator/password.html', {'password':thepassword})
-        
